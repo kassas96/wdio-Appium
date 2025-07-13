@@ -1,28 +1,23 @@
-package utils.Setup;
-
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import utils.DataReader.PropertiesReader;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-public class Setup {
+public class TestBase {
+
     public AndroidDriver<AndroidElement> driver;
-    public Properties prop;
 
     @BeforeClass
-    public void configureAppium() throws IOException {
+    public void setupAppium() throws IOException {
         // Load properties file
-        prop = new Properties();
-        FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "/src/test/resources/config.properties");
-        prop.load(fis);
+        PropertiesReader prop = new PropertiesReader("src/main/resources/config.properties");
 
         DesiredCapabilities caps = new DesiredCapabilities();
         //mandatory capabilities
@@ -31,6 +26,7 @@ public class Setup {
         caps.setCapability(MobileCapabilityType.APP,  prop.getProperty("appPath"));
         caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
         //optional capabilities
+        caps.setCapability(MobileCapabilityType.PLATFORM_VERSION,prop.getProperty("platformVersion"));
         caps.setCapability(MobileCapabilityType.NO_RESET, true);
         caps.setCapability("autoGrantPermissions", true);
 
