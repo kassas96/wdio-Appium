@@ -1,8 +1,8 @@
-﻿# wdio-Appium
+# WDIO Demo App Automation Framework
 
 ## 🎥 Demo
 https://github.com/user-attachments/assets/09e891ea-c147-4584-b4c1-170bee42c06e
-# WDIO Demo App Automation Framework
+
 
 ## 📝 Overview
 This project automates test scenarios for the WDIO demo Android app using **Appium with Java** and follows **Page Object Model (POM)** design pattern. The framework is designed to run on an 8-inch emulator in portrait mode.
@@ -39,6 +39,7 @@ Foodics_Appium_Task/
 - Maven 3.6.0+
 - Appium Server 1.22.0+
 - Android SDK
+- Real Device Samsung S10+
 - 8-inch Android Emulator (API 30+ recommended)
 
 ## 🛠️ Setup
