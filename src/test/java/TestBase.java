@@ -23,7 +23,7 @@ public class TestBase {
         //mandatory capabilities
         caps.setCapability(MobileCapabilityType.PLATFORM_NAME,"Android");
         caps.setCapability(MobileCapabilityType.DEVICE_NAME, prop.getProperty("deviceName"));
-        caps.setCapability(MobileCapabilityType.APP,  prop.getProperty("appPath"));
+        caps.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir") + prop.getProperty("appPath"));
         caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
         //optional capabilities
         caps.setCapability(MobileCapabilityType.PLATFORM_VERSION,prop.getProperty("platformVersion"));

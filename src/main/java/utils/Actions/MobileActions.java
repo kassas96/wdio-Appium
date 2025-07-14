@@ -126,4 +126,40 @@ public class MobileActions {
         return isDisplyed;
     }
 
+    /*Check element on list is clickable*/
+    public static boolean isClickable( AndroidDriver driver, By locator, int index, int time) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, time);
+            wait.until(ExpectedConditions.elementToBeClickable((WebElement) driver.findElements(locator).get(index)));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    /**
+     *
+     * @param driver
+     * @param targetLocator  the desired locator
+     * @param baseLocator   the base of the indexed locator
+     */
+    public static void swipeLeftOnCards(AndroidDriver driver, By targetLocator, By baseLocator) {
+
+        int tobLocationHeight = driver.findElement(baseLocator).getLocation().getY()+(driver.findElement(baseLocator).getSize().getHeight()/2);
+        boolean end_of_page = false;
+        String source_page = driver.getPageSource();
+        while (!end_of_page) {
+            if (isElementDisplay(driver, targetLocator)) {
+                return;
+            }
+            Dimension dimension = driver.manage().window().getSize();
+            int scrollStart = (int) (dimension.getWidth() * 0.7);
+            int scrollEnd = (int) (dimension.getWidth() * 0.3);
+            new TouchAction(driver)
+                    .press(PointOption.point( scrollStart, tobLocationHeight))
+                    .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
+                    .moveTo(PointOption.point(scrollEnd,tobLocationHeight)).release().perform();
+            end_of_page = source_page.equals(driver.getPageSource());
+            source_page = driver.getPageSource();
+        }
+    }
 }
