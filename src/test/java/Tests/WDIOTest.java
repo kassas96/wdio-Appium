@@ -1,9 +1,9 @@
+package Tests;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.*;
-import utils.Actions.WaitHelper;
 import utils.DataReader.JsonFileManager;
 
 public class WDIOTest extends TestBase{
