@@ -17,12 +17,15 @@ AndroidDriver driver;
      * -------------------------------Login page Locators -----------------------------------------
      **/
     private static final By LOGIN_TAB = By.xpath("//*[@content-desc='button-login-container']");
+    private static final By SIGNUP_TAB = By.xpath("//*[@content-desc='button-sign-up-container']");
+
     private static final By LOGIN_PAGE_MAIN_TITLE = By.xpath("//*[@text='Login / Sign up Form']");
     private static final By LOGIN_PAGE_EMAIL = MobileBy.AccessibilityId("input-email");
     private static final By LOGIN_PAGE_PASSWORD = MobileBy.AccessibilityId("input-password");
 
     private static final By LOGIN_PAGE_LOGIN_BTN  = By.xpath("//*[@content-desc='button-LOGIN']");
-    private static final By LOGIN_SUCCESS_MSG = By.xpath("[@text='You are logged in!']");
+    private static final By LOGIN_SUCCESS_MSG = By.xpath("//*[@text='You are logged in!']");
+    private static final By LOGIN_SUCCESS_MSG_OK_BTN = By.id("android:id/button1");
 
     public  boolean verifyIamInLoginPage(){
         return MobileActions.isElementDisplay(driver,LOGIN_PAGE_MAIN_TITLE);
@@ -36,7 +39,11 @@ AndroidDriver driver;
     private void clickOnLoginBtn(){
         MobileActions.clickWhileVisible(driver,LOGIN_PAGE_LOGIN_BTN);
     }
-    public void completeSignUp( String email, String password) {
+    public void clickOnSuccessMsgOkBtn(){
+        MobileActions.clickWhileVisible(driver,LOGIN_SUCCESS_MSG_OK_BTN);
+    }
+
+    public void completeLogin( String email, String password) {
         enterEmailInLoginPage(email);
         enterPasswordInLoginPage(password);
         clickOnLoginBtn();
@@ -46,5 +53,11 @@ AndroidDriver driver;
     }
     public void clickOnLoginTab(){
         MobileActions.clickWhileVisible(driver,LOGIN_PAGE_LOGIN_BTN);
+    }
+    public void navigateToSignUpPage(){
+        MobileActions.clickWhileVisible(driver,SIGNUP_TAB);
+    }
+    public void navigateToLoginPage(){
+        MobileActions.clickWhileVisible(driver,LOGIN_TAB);
     }
 }

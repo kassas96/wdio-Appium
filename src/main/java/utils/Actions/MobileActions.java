@@ -116,7 +116,7 @@ public class MobileActions {
     public static boolean isElementDisplay( AndroidDriver driver,By locator) {
         boolean isDisplyed = false;
         try {
-            new WebDriverWait( driver, 30).until(ExpectedConditions.visibilityOf(driver.findElement(locator)));
+            new WebDriverWait( driver, 50).until(ExpectedConditions.visibilityOf(driver.findElement(locator)));
             isDisplyed = true;
         } catch (Exception e) {
             System.out.println("Element not Displayed " + locator);
