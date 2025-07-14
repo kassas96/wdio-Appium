@@ -24,33 +24,7 @@ public class WDIOTest extends TestBase{
         testData =  new JsonFileManager(System.getProperty("user.dir") + "/src/test/resources/testData.json");
     }
 
-    @DataProvider(name = "userData")
-    public Object[][] dataprov(){
-       return new Object[][]{
-               {  "modey",25},
-               {"kas",29}
-        };
-    }
-
-//    @Parameters({"name","age"})
-//    @Test(groups = "smoke")
-//    public void test1(String name, int age){
-//        System.out.println(name+age);
-//    }
-
-//    @Test(groups = "regression")
-//    public void test2(){
-//        WaitHelper.waitElement(2000000);
-//        System.out.println("hello");
-//    }
-//
-//
-//    @Test(dataProvider = "userData",groups = "smoke")
-//    public void test3(String name, int age){
-//        System.out.println(name+age);
-//    }
-
-    @Test(priority = 1)
+    @Test(priority = 1, description = "Test user sign up and login flow")
     public void testSignUpAndLogin() {
         // Navigate to Login screen
         homePage.navigateToLoginScreen();
@@ -80,42 +54,49 @@ public class WDIOTest extends TestBase{
 
         //close the popup
         loginPage.clickOnSuccessMsgOkBtn();
+    }
 
+    @Test(priority = 2, description = "Test forms page interactions")
+    public void testFormsScreen() {
+        // Navigate to Forms screen
+        homePage.navigateToFormsScreen();
+
+       // verify successful navigation toFormPage
+        formsPage.verifyIamInFormPage();
+
+        // Test text input
+        String testText = testData.getTestData("DataForInputField");
+        formsPage.enterText( testText);
+        Assert.assertEquals(formsPage.getEnteredText(), testText, "Text input doesn't match");
+
+        // Test switch
+        formsPage.toggleSwitch();
+        Assert.assertEquals(formsPage.getSwitchText(), "Click to turn the switch OFF", "Switch text doesn't match");
+
+        // Select from dropdown then assert on the selection
+        formsPage.selectDropdownOption();
+        Assert.assertEquals(formsPage.getDropdownSelectedText(),"Appium is awesome","selection failed");
+
+        // Test active button then close the popup
+        formsPage.clickActiveButton();
+        Assert.assertEquals(formsPage.getActiveDialogTitle(), "This button is active", "Active dialog title doesn't match");
+        formsPage.clickActiveOKButton();
+
+        // Test inactive button
+        Assert.assertFalse(formsPage.isActiveDialogDisplayed(),"the inactive btn is active now");
 
     }
 
-//    @Test(priority = 2)
-//    public void testFormsScreen() {
-//        // Navigate to Forms screen
-//        welcomePage.navigateToFormsScreen(driver);
-//
-//        // Test text input
-//        String testText = testData.getValue("formsTestText");
-//        formsPage.enterText(driver, testText);
-//        Assert.assertEquals(formsPage.getEnteredText(), testText, "Text input doesn't match");
-//
-//        // Test switch
-//        formsPage.toggleSwitch(driver);
-//        Assert.assertEquals(formsPage.getSwitchText(), "Click to turn the switch OFF", "Switch text doesn't match");
-//
-//        // Test dropdown
-//        formsPage.selectDropdownOption(driver);
-//
-//        // Test active button
-//        formsPage.clickActiveButton(driver);
-//        Assert.assertEquals(formsPage.getActiveDialogTitle(), "This button is active", "Active dialog title doesn't match");
-//    }
-//
-//    @Test(priority = 3)
-//    public void testSwipeScreen() {
-//        // Navigate to Swipe screen
-//        welcomePage.navigateToSwipeScreen(driver);
-//
-//        // Swipe until Support Videos card is displayed
-//        swipePage.swipeToSupportVideos(driver);
-//
-//        // Assert Support Videos card is displayed
-//        Assert.assertTrue(swipePage.isSupportVideosDisplayed(driver), "Support Videos card is not displayed");
-//    }
+    @Test(priority = 3, description = "Test swipe functionality")
+    public void testSwipeScreen() {
+        // Navigate to Swipe screen
+        homePage.navigateToSwipeScreen();
+
+        // Swipe until Support Videos card is displayed
+        swipePage.swipeToSupportVideos();
+
+        // Assert Support Videos card is displayed
+        Assert.assertTrue(swipePage.isSupportVideosDisplayed(), "Support Videos card is not displayed");
+    }
 
 }

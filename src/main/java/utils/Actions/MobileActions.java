@@ -142,24 +142,66 @@ public class MobileActions {
      * @param targetLocator  the desired locator
      * @param baseLocator   the base of the indexed locator
      */
+//    public static void swipeLeftOnCards(AndroidDriver driver, By targetLocator, By baseLocator) {
+//
+//        int tobLocationHeight = driver.findElement(baseLocator).getLocation().getY()+(driver.findElement(baseLocator).getSize().getHeight()/2);
+//        boolean end_of_page = false;
+//        String source_page = driver.getPageSource();
+//        while (!end_of_page) {
+//            if (isElementDisplay(driver, targetLocator)) {
+//                return;
+//            }
+//            Dimension dimension = driver.manage().window().getSize();
+//            int scrollStart = (int) (dimension.getWidth() * 0.7);
+//            int scrollEnd = (int) (dimension.getWidth() * 0.3);
+//            new TouchAction(driver)
+//                    .press(PointOption.point( scrollStart, tobLocationHeight))
+//                    .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
+//                    .moveTo(PointOption.point(scrollEnd,tobLocationHeight)).release().perform();
+//            end_of_page = source_page.equals(driver.getPageSource());
+//            source_page = driver.getPageSource();
+//        }
+//    }
     public static void swipeLeftOnCards(AndroidDriver driver, By targetLocator, By baseLocator) {
-
-        int tobLocationHeight = driver.findElement(baseLocator).getLocation().getY()+(driver.findElement(baseLocator).getSize().getHeight()/2);
+        int tobLocationHeight = driver.findElement(baseLocator).getLocation().getY() +
+                (driver.findElement(baseLocator).getSize().getHeight()/2);
         boolean end_of_page = false;
+        boolean elementFound = false;
         String source_page = driver.getPageSource();
+        int swipeCountAfterFound = 0;
+        final int MAX_SWIPES_AFTER_FOUND = 1;
+
         while (!end_of_page) {
+            // Check if element is displayed
             if (isElementDisplay(driver, targetLocator)) {
-                return;
+                elementFound = true;
+
+                if (swipeCountAfterFound >= MAX_SWIPES_AFTER_FOUND) {
+                    return;
+                }
             }
+
+            // Perform the swipe
             Dimension dimension = driver.manage().window().getSize();
             int scrollStart = (int) (dimension.getWidth() * 0.7);
             int scrollEnd = (int) (dimension.getWidth() * 0.3);
+
             new TouchAction(driver)
-                    .press(PointOption.point( scrollStart, tobLocationHeight))
-                    .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
-                    .moveTo(PointOption.point(scrollEnd,tobLocationHeight)).release().perform();
+                    .press(PointOption.point(scrollStart, tobLocationHeight))
+                    .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))) // Reduced from 2 seconds
+                    .moveTo(PointOption.point(scrollEnd, tobLocationHeight))
+                    .release()
+                    .perform();
+
+            // Count extra swipes if we've found the element
+            if (elementFound) {
+                swipeCountAfterFound++;
+            }
+
+            // Check if we've reached the end of the page
             end_of_page = source_page.equals(driver.getPageSource());
             source_page = driver.getPageSource();
         }
     }
+
 }

@@ -15,22 +15,26 @@ public class FormsPage {
     /**
      * ------------------------------- Forms page Locators -----------------------------------------
      **/
-    private static final By TEXT_INPUT_FIELD = MobileBy.AccessibilityId("input-text");
+    private static final By FORM_PAGE_HEADER = By.xpath("//*[@text='Form components']");
+    private static final By TEXT_INPUT_FIELD = MobileBy.AccessibilityId("text-input");
     private static final By TEXT_INPUT_RESULT = MobileBy.AccessibilityId("input-text-result");
     private static final By SWITCH_ELEMENT = MobileBy.AccessibilityId("switch");
     private static final By SWITCH_TEXT = MobileBy.AccessibilityId("switch-text");
-    private static final By DROPDOWN = By.id("text_input");
+    private static final By DROPDOWN = By.xpath("//*[@resource-id='text_input']");
     private static final By DROPDOWN_OPTION = By.xpath("//*[@text='Appium is awesome']");
     private static final By ACTIVE_BUTTON = MobileBy.AccessibilityId("button-Active");
     private static final By INACTIVE_BUTTON = By.xpath("//*[@content-desc='button-Inactive']");
 
 
-    private static final By ACTIVE_DIALOG_TITLE = By.id("android:id/alertTitle");
+    private static final By ACTIVE_DIALOG_TITLE = By.id("android:id/message");
     private static final By ACTIVE_DIALOG_OK_BUTTON= By.id("android:id/button1");
 
     /**
      * ------------------------------- Forms page Actions -----------------------------------------
      **/
+    public boolean verifyIamInFormPage(){
+        return MobileActions.isElementDisplay(driver,FORM_PAGE_HEADER);
+    }
     public void enterText(String text) {
         MobileActions.setTextWhileVisible(driver, TEXT_INPUT_FIELD, text);
     }
@@ -43,7 +47,6 @@ public class FormsPage {
         MobileActions.clickWhileVisible(driver, SWITCH_ELEMENT);
     }
 
-//    Click to turn the switch ON
     public String getSwitchText() {
         return MobileActions.getTextWhileVisible(driver, SWITCH_TEXT);
     }
@@ -52,7 +55,6 @@ public class FormsPage {
         MobileActions.clickWhileVisible(driver, DROPDOWN);
         MobileActions.clickWhileVisible(driver, DROPDOWN_OPTION);
     }
-    //Appium is awesome
     public String getDropdownSelectedText() {
         return MobileActions.getTextWhileVisible(driver, DROPDOWN);
     }
