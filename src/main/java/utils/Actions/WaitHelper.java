@@ -10,6 +10,13 @@ import utils.Logger;
 
 public abstract class WaitHelper {
 
+    /**
+     * Waits for an element to become visible on the screen.
+     *
+     * @param driver The AndroidDriver instance used to interact with the app
+     * @param locator The By locator strategy used to identify the element
+     * @return true if the element becomes visible within the timeout period, false otherwise
+     * */
     public static boolean waitVisibility(AndroidDriver driver, By locator) {
         boolean isElementPresent = false;
         try {
@@ -24,7 +31,10 @@ public abstract class WaitHelper {
     }
 
     /**
-     * @param timeoutInMilliSeconds the length of time to sleep in milliseconds
+       Pauses test execution for the specified amount of time.
+     * This is a static wait and should be used sparingly in favor of explicit waits.
+     *
+     * @param timeoutInMilliSeconds The duration to pause execution in milliseconds
      */
     public static void waitElement(int timeoutInMilliSeconds) {
         try {
