@@ -1,22 +1,36 @@
 # WDIO Demo App Automation Framework
 
-## 🎥 Demo
-https://github.com/user-attachments/assets/09e891ea-c147-4584-b4c1-170bee42c06e
+## 🎥 Demo Videos
+### Test Execution on Different Devices
+- **Samsung S10+ (Passed)**: 
 
+
+https://github.com/user-attachments/assets/5b9a2e61-43a0-4cdd-b871-246fb0f3849e
+
+
+- **8-inch Tablet (Failed)**:
+  
+
+https://github.com/user-attachments/assets/bfbb5690-8358-496d-9ad6-55a523967025
+
+
+
+*Note: The swipe test fails on the tablet due to a known issue with the card rendering*
 
 ## 📝 Overview
-This project automates test scenarios for the WDIO demo Android app using **Appium with Java** and follows **Page Object Model (POM)** design pattern. The framework is designed to run on an 8-inch emulator in portrait mode.
+This project automates test scenarios for the WDIO demo Android app using **Appium with Java** and follows **Page Object Model (POM)** design pattern. The framework is designed to run on both 8-inch emulators and real devices.
 
 ## 🚀 Features
 - **Page Object Model** design for maintainability
 - **Data-driven** approach (no hard-coded values)
 - **Reusable components** and utility classes
+- **Allure Reporting** with screenshots and videos
 - **Comprehensive test coverage** for:
   - User registration
   - Login flow
   - Forms interaction
   - Swipe gestures
-
+    
 ## 📁 Project Structure
 ```
 Foodics_Appium_Task/
@@ -39,8 +53,9 @@ Foodics_Appium_Task/
 - Maven 3.6.0+
 - Appium Server 1.22.0+
 - Android SDK
-- Real Device Samsung S10+
+- Real Device Samsung S10+ (for full compatibility)
 - 8-inch Android Emulator (API 30+ recommended)
+- Allure Commandline (for report generation)
 
 ## 🛠️ Setup
 
@@ -66,14 +81,19 @@ mvn clean install
 2. Place your APK file in `src/test/resources/`
 
 ## 🧪 Running Tests
-### Option 1: Run all tests
+###  Run all tests
 ```bash
-mvn test
+mvn clean test
 ```
 
-### Option 2: Run specific test suite
+### Generate Allure Report
 ```bash
-mvn test -DsuiteXmlFile=testng.xml
+mvn allure:report
+```
+
+### View Report Locally
+```bash
+mvn allure:serve
 ```
 
 ## 🔧 Key Components
@@ -81,7 +101,7 @@ mvn test -DsuiteXmlFile=testng.xml
 - `LoginPage.java` - Handles login screen interactions
 - `SignUpPage.java` - Manages user registration
 - `FormsPage.java` - Covers form field validations
-- `SwipePage.java` - Implements swipe gestures
+- `SwipePage.java` - Implements swipe gestures (with device-specific handling)
 
 ### Utilities
 - `MobileActions.java` - Reusable mobile interactions
@@ -106,9 +126,23 @@ mvn test -DsuiteXmlFile=testng.xml
 
 4. **Swipe Gestures**
    - Horizontal swipe to locate "SUPPORT VIDEOS" card
+   - *Note: Known rendering issue on 8-inch tablets*
+
 
 ## 📌 Important Notes
-- Runs on **8-inch emulator** in **portrait mode**
-- Test data is stored in `src/test/resources/testData.json`
-- All dependencies are bundled in the project
 
+### Device Compatibility:
+- ✅ **All tests pass on Samsung S10+**
+- ⚠️ **Swipe test fails on 8-inch tablet** due to card rendering issue
+- 📂 **Test Data**: Stored in `src/test/resources/testData.json`
+
+### Reporting:
+- 📊 **Allure reports** include screenshots on failure
+- 🎥 Videos of test execution available in [Demo Section]
+- 📦 **Dependencies**: All bundled in the project
+
+## Known Issues
+
+### Tablet Swipe Test Failure:
+```text
+The "SUPPORT VIDEOS" card doesn't render properly on 8-inch tablets
