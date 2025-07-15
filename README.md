@@ -137,6 +137,9 @@ mvn allure:serve
 - ⚠️ **Swipe test fails on 8-inch tablet** due to card rendering issue
 - 📂 **Test Data**: Stored in `src/test/resources/testData.json`
 
+### Version Control
+- 🔀 **Git Integration**: Project uses Git for version control
+
 ### Reporting:
 - 📊 **Allure reports** include screenshots on failure
 - 🎥 Videos of test execution available in [Demo Section]
