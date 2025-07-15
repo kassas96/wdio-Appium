@@ -1,5 +1,10 @@
 package Tests;
 
+
+
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -23,8 +28,9 @@ public class WDIOTest extends TestBase{
         swipePage = new SwipePage(driver);
         testData =  new JsonFileManager(System.getProperty("user.dir") + "/src/test/resources/testData.json");
     }
-
-    @Test(priority = 1, description = "Test user sign up and login flow")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Test user sign up and login features")
+    @Test(priority = 1, description = "Test that user can sign up then login login to the system")
     public void testSignUpAndLogin() {
         // Navigate to Login screen
         homePage.navigateToLoginScreen();
@@ -38,7 +44,7 @@ public class WDIOTest extends TestBase{
        signUpPage.completeSignUp(email,password,password);
 
         // Assert sign up was successful
-        Assert.assertTrue(signUpPage.isSignUpSuccessful(), "Sign up was failed");
+        Assert.assertTrue(signUpPage.isSignUpSuccessful(), testData.getTestData("ExpectedSignupSuccessMsg"));
 
         //close the popup
         signUpPage.closePopUpMsg();
@@ -50,12 +56,14 @@ public class WDIOTest extends TestBase{
         loginPage.completeLogin(email,password);
 
         // Assert login was successful
-        Assert.assertTrue(loginPage.isLoginSuccessful(), "Login was not successful");
+        Assert.assertTrue(loginPage.isLoginSuccessful(), testData.getTestData("ExpectedLoginSuccessMsg"));
 
         //close the popup
         loginPage.clickOnSuccessMsgOkBtn();
     }
 
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Test form filling features")
     @Test(priority = 2, description = "Test forms page interactions")
     public void testFormsScreen() {
         // Navigate to Forms screen
@@ -79,7 +87,7 @@ public class WDIOTest extends TestBase{
 
         // Test active button then close the popup
         formsPage.clickActiveButton();
-        Assert.assertEquals(formsPage.getActiveDialogTitle(), "This button is active", "Active dialog title doesn't match");
+        Assert.assertEquals(formsPage.getActiveDialogTitle(),testData.getTestData("ActiveBtnExpectedMsg") , "Active dialog title doesn't match");
         formsPage.clickActiveOKButton();
 
         // Test inactive button
@@ -87,7 +95,9 @@ public class WDIOTest extends TestBase{
 
     }
 
-    @Test(priority = 3, description = "Test swipe functionality")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Test swiping feature")
+    @Test(priority = 3, description = "Test swipe functionality till reaching specific card")
     public void testSwipeScreen() {
         // Navigate to Swipe screen
         homePage.navigateToSwipeScreen();

@@ -3,11 +3,17 @@ package Tests;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.qameta.allure.Allure;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import utils.DataReader.PropertiesReader;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -35,7 +41,13 @@ public class TestBase {
         driver = new AndroidDriver<>(new URL(prop.getProperty("appiumURL")), caps);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
-
+    @AfterMethod
+    public void takeScreenshotOnFailure(ITestResult result) {
+        if (result.getStatus() == ITestResult.FAILURE && driver != null) {
+            Allure.addAttachment("Screenshot on failure",
+                    new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
+        }
+    }
     @AfterClass
     public void tearDown() {
         if (driver != null) {

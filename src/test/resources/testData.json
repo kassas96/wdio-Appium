@@ -1,5 +1,9 @@
 {
   "DataForInputField": "Foodics",
   "Email": "MohamedElkassas@gmail.com",
-  "Password": "P@ssw0rd"
+  "Password": "P@ssw0rd",
+
+  "ExpectedLoginSuccessMsg": "Login was not successful",
+  "ExpectedSignupSuccessMsg": "Sign up was failed",
+  "ActiveBtnExpectedMsg": "This button is active"
 }
