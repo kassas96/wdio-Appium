@@ -76,6 +76,7 @@ mvn clean install
    deviceName=8-inch-Tablet
    appiumURL=http://127.0.0.1:4723/wd/hub
    appPath=/src/test/resources/android.wdio.native.app.v1.0.8.apk
+   platformVersion=14
    ```
 
 2. Place your APK file in `src/test/resources/`
