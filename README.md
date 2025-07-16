@@ -15,7 +15,7 @@ https://github.com/user-attachments/assets/bfbb5690-8358-496d-9ad6-55a523967025
 
 
 
-***Note** The swipe test fails on the tablet due to a known issue with the card as it is trimed and it's content is not desplayed, however i can get the card by its icon xPath and its index <(//*[contains(@resource-id,'icon')])[3]> but it's not right to do so*
+***Note** The swipe test fails on the tablet due to a known issue with the card as it is trimed and it's content is not desplayed, however i can get the card by JavascriptExecutor or its icon xPath and its index <(//*[contains(@resource-id,'icon')])[3]> but it's not right to do so as it is a bug and test should fail*
 
 ## 📝 Overview
 This project automates test scenarios for the WDIO demo Android app using **Appium with Java** and follows **Page Object Model (POM)** design pattern. The framework is designed to run on both 8-inch emulators and real devices.
